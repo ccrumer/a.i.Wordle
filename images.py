@@ -28,12 +28,13 @@ def get_image(prompt: str):
             return "Error: base64Url not found in response"
     else:
         return f"Error: {response.status_code}, {response.text}"
+   
 def fetch_random_image_url():
-    with open('imageURL.txt', 'r') as f:
+    with open('prompts.txt', 'r') as f:
         lines = f.readlines()
-        random_line = random.choice(lines)
-        
-        return random_line
+        random_line = random.choice(lines).strip()  # Get a random line and strip any extraneous whitespace
+        prompt, image_url = random_line.split('|')  # Split the line into prompt and image URL
+        return prompt, image_url
 
 def fetch_image_urls(prompt: str):
     image_url = get_image(prompt)

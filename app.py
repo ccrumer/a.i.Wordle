@@ -12,8 +12,8 @@ if 'game_over' not in st.session_state:
 if 'guesses' not in st.session_state:
     st.session_state.guesses = []
 
-if 'reference_image_url' not in st.session_state:
-    st.session_state.reference_image_url = fetch_random_image_url()
+if 'reference_prompt' not in st.session_state or 'reference_image_url' not in st.session_state:
+    st.session_state.reference_prompt, st.session_state.reference_image_url = fetch_random_image_url()
 
 st.set_page_config(page_title="NERD-LE")
 
@@ -104,6 +104,7 @@ else:
             if st.session_state.attempts >= 3:
                 st.session_state.game_over = True
                 st.sidebar.write("Game Over! You've used all your attempts.")
+                st.sidebar.write("The correct prompt was: "+ st.session_state.reference_prompt)
                 if guess_quality(similarity_score) == "Excellent Guess":
                     st.balloons()
             else:
@@ -127,6 +128,6 @@ if st.session_state.game_over:
         st.session_state.attempts = 0
         st.session_state.game_over = False
         st.session_state.guesses = []
-        st.session_state.reference_image_url = fetch_random_image_url()
+        st.session_state.reference_prompt, st.session_state.reference_image_url = fetch_random_image_url()
         st.experimental_rerun()
 
