@@ -21,7 +21,7 @@ def compare_images(image1, image2):
     return cosine_similarity(embedding1, embedding2)
 
 def guess_quality(similarity_score):
-    if similarity_score < 0.5:
+    if similarity_score < 0.65:
         return "Bad Guess"
     elif 0.65 <= similarity_score < 0.80:
         return "Fair Guess"
