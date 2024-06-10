@@ -93,6 +93,7 @@ else:
             st.session_state.attempts += 1
 
             if st.session_state.image1_url:
+                st.toast("Your Image is Ready in the Sidebar!")
                 similarity_score = compare_images(st.session_state.image1_url, st.session_state.reference_image_url)
                 quality = guess_quality(similarity_score)
                 st.session_state.guesses.append({
@@ -104,7 +105,7 @@ else:
             if st.session_state.attempts >= 3:
                 st.session_state.game_over = True
                 st.sidebar.write("Game Over! You've used all your attempts.")
-                st.sidebar.write("The correct prompt was: "+ st.session_state.reference_prompt)
+                st.sidebar.write("The correct prompt was: "+'"'+st.session_state.reference_prompt+'"')
                 if guess_quality(similarity_score) == "Excellent Guess":
                     st.balloons()
             else:
